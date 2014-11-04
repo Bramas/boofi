@@ -10,6 +10,6 @@ class NginxSendFile
 
  		header('X-Accel-Redirect: '.$absolutePath);
 		header("Content-type: application/octet-stream");
-		header('Content-Disposition: attachment; filename="' . basename($file) . '"');
+		header('Content-Disposition: attachment; filename="' . basename($absolutePath) . '"');
 	} 
 }
