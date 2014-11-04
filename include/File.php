@@ -14,7 +14,7 @@ class File
 
 	public function __construct($path, $name, $url)
 	{
-		$this->url = $url.'/'.$name;
+		$this->url = urlencode($url.'/'.$name);
 		$this->path = $path;
 		$this->name = $name;
 		$this->isDir = is_dir($path.$name);

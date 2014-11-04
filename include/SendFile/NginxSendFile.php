@@ -6,7 +6,6 @@ class NginxSendFile
 {
 	public static function send($absolutePath)
 	{
-		error_log ("file ? ".$absolutePath);
 		if (!file_exists($absolutePath)) trigger_error("File '$file' doesn't exist.", E_USER_ERROR);
 
  		header('X-Accel-Redirect: '.$absolutePath);
