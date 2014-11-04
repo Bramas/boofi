@@ -14,9 +14,11 @@ class Config
 	}
 	public static function addFolder($alias, $absolutePath)
 	{
-		if(substr($absolutePath,-1,1) != DS)
+		str_replace('\\', '/', $absolutePath);
+		str_replace('//', '/', $absolutePath);
+		while(substr($absolutePath,-1,1) == '/')
 		{
-			$absolutePath .= DS;
+			$absolutePath = substr($absolutePath, 0, strlen($absolutePath));
 		}
 		Config::$_folders[$alias] = $absolutePath;
 	}
