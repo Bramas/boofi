@@ -29,8 +29,14 @@ class Dispatcher
 		}
 		if(!is_dir($path))
 		{
-			//NginxSendFile::send($url);
-			SendFile::send($path);
+			if(strstr($_SERVER["SERVER_SOFTWARE"], 'nginx'))
+			{
+				NginxSendFile::send($url);
+			}
+			else
+			{
+				SendFile::send($path);
+			}
 			exit();
 		}
 		$currentDir = new \Boofi\Dir($path, $url);
