@@ -8,6 +8,7 @@ class File
 	public $size = 0;
 	public $name = "test";
 	public $path = ".";
+	public $isHidden = false;
 
 
 	public function __construct($path, $name)
@@ -23,6 +24,8 @@ class File
 		{
 			$this->size = "";
 		}
+
+		$this->isHidden = (substr($name,0,1) == '.')
 	}
 
 	static function human_filesize($bytes, $decimals = 2) {
