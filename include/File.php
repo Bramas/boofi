@@ -25,7 +25,7 @@ class File
 			$this->size = "";
 		}
 
-		$this->isHidden = (substr($name,0,1) == '.')
+		$this->isHidden = (substr($name,0,1) == '.');
 	}
 
 	static function human_filesize($bytes, $decimals = 2) {
