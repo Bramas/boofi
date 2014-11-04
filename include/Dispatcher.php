@@ -31,7 +31,7 @@ class Dispatcher
 		{
 			if(strstr($_SERVER["SERVER_SOFTWARE"], 'nginx'))
 			{
-				NginxSendFile::send($url);
+				NginxSendFile::send($path);
 			}
 			else
 			{
