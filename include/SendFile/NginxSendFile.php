@@ -1,8 +1,8 @@
 <?php
 
-namespace Boofi
+namespace Boofi;
 
-class NginxSendFile extends SendFile
+class NginxSendFile
 {
 	public static function send($absolutePath)
 	{
