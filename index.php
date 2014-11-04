@@ -1,6 +1,8 @@
 <?php
 
 require_once('include/bootstrap.php');
+$dispatcher = new \Boofi\Dispatcher();
+$content = $dispatcher->run(urldecode($_SERVER['QUERY_STRING']));
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -37,11 +39,7 @@ require_once('include/bootstrap.php');
 			</thead>
 			<tbody>
 				<?php
-
-				$currentDir = new \Boofi\Dir('./');
-				$currentDir->files();
-				
-	
+				echo $content;
 				?>
 				</tbody>
 			</table>

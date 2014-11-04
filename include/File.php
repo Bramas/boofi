@@ -8,11 +8,13 @@ class File
 	public $size = 0;
 	public $name = "test";
 	public $path = ".";
+	public $url = "";
 	public $isHidden = false;
 
 
-	public function __construct($path, $name)
+	public function __construct($path, $name, $url)
 	{
+		$this->url = $url.'/'.$name;
 		$this->path = $path;
 		$this->name = $name;
 		$this->isDir = is_dir($path.$name);
