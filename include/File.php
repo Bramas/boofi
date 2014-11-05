@@ -11,6 +11,7 @@ class File
 	public $url = "";
 	public $isHidden = false;
 
+	public $filemtime = '';
 
 	public function __construct($path, $name, $url)
 	{
@@ -18,6 +19,7 @@ class File
 		$this->path = $path;
 		$this->name = $name;
 		$this->isDir = is_dir($path.$name);
+		$this->filemtime = date("Y-m-d H:i:s",filemtime($path.$name));
 		if(!$this->isDir)
 		{
 			$this->size = File::human_filesize(intval(filesize($path.$name)/8), 0);
@@ -31,7 +33,7 @@ class File
 	}
 
 	static function human_filesize($bytes, $decimals = 2) {
-		$sz = 'BKMGTP';
+		$sz = array('o', 'Ko', 'Mo', 'Go', 'To', 'Po');
 		$factor = floor((strlen($bytes) - 1) / 3);
 		return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @$sz[$factor];
 	}

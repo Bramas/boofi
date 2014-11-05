@@ -10,18 +10,25 @@ class Dispatcher
 		{
 			$url = substr($url, 0, strlen($url) - 1);
 		}
-		$key = current(array_keys(Config::folders()));
-		$path = Config::folders()[$key];
 		if($url === "")
 		{
-			$url = $key;
+			exit('not yet');
 		}
-		if(substr($url.'/', 0, strlen($key)+1) !== $key.'/')
+		$alias = false;
+		foreach(Config::folders() as $key => $aliasPath)
 		{
-			Util::debug('Dispatcher::run - '.$url.' does not start with '.$key.DS);
+			if(substr($url.'/', 0, strlen($key)+1) === $key.'/')
+			{
+				$alias = $key;
+				$path = $aliasPath;
+			}
+		}
+		if($alias === false)
+		{
+			Util::debug('Dispatcher::run - '.$url.' does not start with '.$key);
 			exit();
 		}
-		$path = $path.substr($url, strlen($key));
+		$path = $path.substr($url, strlen($alias));
 		if(!file_exists($path) || substr($path,-3) === "php")
 		{
 			Util::debug('Dispatcher::run - Wrong path: '.$path);
@@ -39,13 +46,10 @@ class Dispatcher
 			}
 			exit();
 		}
-		$currentDir = new \Boofi\Dir($path, $url);
-		$urlParent = explode('/', $url);
-		array_pop($urlParent);
-		$urlParent = implode('/', $urlParent);
-		ob_start();	
-		echo '<a href="?'.$urlParent.'">Dossier Parent</a><br/>';
-		$currentDir->files();	
+		Dir::setCurrent($path, $url);
+	
+		ob_start();
+		Dir::current()->files();	
 		return ob_get_clean();
 	}
 }

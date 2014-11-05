@@ -8,7 +8,15 @@ class Util
 	{
 		if(Config::debug)
 		{
-			echo $a;
+			if($a instanceof Dir)
+			{
+				Util::debug(array(
+					'name'=>$a->name,
+					'path' => $a->path,
+					'url' => $a->url));
+				return;
+			}
+			print_r($a);
 		}
 	}
 }

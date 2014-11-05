@@ -30,13 +30,21 @@ $content = $dispatcher->run(urldecode($_SERVER['QUERY_STRING']));
 </head>
 <body>
 	<div class="container">
+		<div class="btn-group">
+		 	<button type="button" class="btn btn-default" disabled="disabled">Dossier:</button>
+			<?php
+			$dir = \Boofi\Dir::current();
+			$folderList = array();
+			while($dir)
+			{
+				$folderList[] = '<a href="?'.$dir->url.'" '.($dir == \Boofi\Dir::current()?'disabled="disabled"':'').' type="button" class="btn btn-default">'.$dir->name.'</a>';
+				$dir = $dir->parent();
+			}
+			$folderList = array_reverse($folderList);
+			echo implode("\n", $folderList);
+			?>
+		</div>
 		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th></th>
-					<th>Nom</th>
-				</tr>
-			</thead>
 			<tbody>
 				<?php
 				echo $content;
