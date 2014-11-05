@@ -12,7 +12,14 @@ class Dispatcher
 		}
 		if($url === "")
 		{
-			exit('not yet');
+			ob_start();
+			echo '<ul>';
+			foreach(Config::folders() as $key => $aliasPath)
+			{
+				echo '<li><a href="?'.$key.'">'.$key.'</a></li>';
+			}
+			echo '</ul>';
+			return ob_get_clean();
 		}
 		$alias = false;
 		foreach(Config::folders() as $key => $aliasPath)
@@ -32,7 +39,7 @@ class Dispatcher
 		if(!file_exists($path) || substr($path,-3) === "php")
 		{
 			Util::debug('Dispatcher::run - Wrong path: '.$path);
-			exit();
+			exit('not found');
 		}
 		if(!is_dir($path))
 		{

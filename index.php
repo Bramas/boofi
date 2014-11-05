@@ -31,7 +31,7 @@ $content = $dispatcher->run(urldecode($_SERVER['QUERY_STRING']));
 <body>
 	<div class="container">
 		<div class="btn-group">
-		 	<button type="button" class="btn btn-default" disabled="disabled">Dossier:</button>
+		 	<a href="?" class="btn btn-default" >Dossiers</a>
 			<?php
 			$dir = \Boofi\Dir::current();
 			$folderList = array();

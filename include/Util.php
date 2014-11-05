@@ -17,6 +17,7 @@ class Util
 				return;
 			}
 			print_r($a);
+			echo '<br/>';
 		}
 	}
 }
