@@ -18,9 +18,13 @@ $content = $dispatcher->run(urldecode($_SERVER['QUERY_STRING']));
 
 	<!-- Bootstrap core CSS -->
 	<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+	<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="assets/js/jquery.tablesorter.min.js"></script>
+	
 
-	<!-- Custom styles for this template
-	<link href="assets/css/cover.css" rel="stylesheet"> -->
+	<!-- Custom styles for this template -->
+	<link href="assets/css/cover.css" rel="stylesheet"> 
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -44,7 +48,15 @@ $content = $dispatcher->run(urldecode($_SERVER['QUERY_STRING']));
 			echo implode("\n", $folderList);
 			?>
 		</div>
-		<table class="table table-striped">
+		<table id="files-table" class="table table-striped tablesorter">
+			<thead>
+			<tr>
+				<th></th>
+				<th><span class="ascending glyphicon glyphicon-chevron-up"></span><span class="descending glyphicon glyphicon-chevron-down"></span> Name</th>
+				<th><span class="ascending glyphicon glyphicon-chevron-up"></span><span class="descending glyphicon glyphicon-chevron-down"></span> Size</th>
+				<th><span class="ascending glyphicon glyphicon-chevron-up"></span><span class="descending glyphicon glyphicon-chevron-down"></span> Date</th>
+			</tr>
+			</thead>
 			<tbody>
 				<?php
 				echo $content;
@@ -53,5 +65,12 @@ $content = $dispatcher->run(urldecode($_SERVER['QUERY_STRING']));
 			</table>
 		</div>
 	</div>
+	<script>
+	$(document).ready(function(){
+		$(function(){
+			$("#files-table").tablesorter();
+		});
+	});
+	</script>
 </body>
 </html>
