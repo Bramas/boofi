@@ -56,11 +56,11 @@ class Dir
 
 	public function files()
 	{
-		if ($handle = opendir($this->path)) {
+		{
 			$id = 1;
 			$dirs = array();
 			$files = array();
-			while (false !== ($entry = readdir($handle))) {
+			foreach (scandir($this->path) as $entry) {
 				if ($entry != "." && $entry != "..") {
 					$file = new File($this->path, $entry, $this->url);
 
@@ -85,7 +85,6 @@ class Dir
 			{
 				include('include/Views/file.ctp');
 			}
-			closedir($handle);
 		}
 	}
 }

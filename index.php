@@ -55,6 +55,7 @@ $content = $dispatcher->run(urldecode($_SERVER['QUERY_STRING']));
 				<th><span class="ascending glyphicon glyphicon-chevron-up"></span><span class="descending glyphicon glyphicon-chevron-down"></span> Name</th>
 				<th><span class="ascending glyphicon glyphicon-chevron-up"></span><span class="descending glyphicon glyphicon-chevron-down"></span> Size</th>
 				<th><span class="ascending glyphicon glyphicon-chevron-up"></span><span class="descending glyphicon glyphicon-chevron-down"></span> Date</th>
+				<th><span class="ascending glyphicon glyphicon-chevron-up"></span><span class="descending glyphicon glyphicon-chevron-down"></span> Action</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -65,12 +66,27 @@ $content = $dispatcher->run(urldecode($_SERVER['QUERY_STRING']));
 			</table>
 		</div>
 	</div>
-	<script>
+	<script type="text/javascript">
 	$(document).ready(function(){
 		$(function(){
 			$("#files-table").tablesorter();
 		});
 	});
-	</script>
+	jQuery(function($){
+
+		$('a.action-share').click(function(){
+			var url = $(this).attr('data-url');
+			$.ajax({
+			  method: "POST",
+			  url: "index.php?"+url,
+			  data: { share: 1, ajax: 1, token: '<?php echo $_SESSION['token']; ?>' }
+			})
+			  .done(function( msg ) {
+			    alert( "Link: " + msg );
+			});
+		})
+
+	})
+</script>
 </body>
 </html>

@@ -22,7 +22,7 @@ class File
 		$this->filemtime = date("Y-m-d H:i:s",filemtime($path.$name));
 		if(!$this->isDir)
 		{
-			$this->size = File::human_filesize(intval(filesize($path.$name)/8), 0);
+			$this->size = File::human_filesize(intval(filesize($path.$name)), 0);
 		}
 		else
 		{

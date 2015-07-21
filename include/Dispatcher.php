@@ -6,9 +6,31 @@ class Dispatcher
 {
 	public function run($url)
 	{
+		$originalUrl = $url;
 		if(substr($url, -1) === '/')
 		{
 			$url = substr($url, 0, strlen($url) - 1);
+		}
+		$alias = false;
+		foreach(Config::folders() as $key => $aliasPath)
+		{
+			if(substr($url.'/', 0, strlen($key)+1) === $key.'/')
+			{
+				$alias = $key;
+				$path = $aliasPath;
+				break;
+			}
+		}
+		$path = $path.substr($url, strlen($alias));
+
+		Authenticator::setFolder($alias);
+		Authenticator::setPath($path);
+		$path = Authenticator::getAuthorizedPath($path);
+		if($path === false)
+		{
+			ob_start();
+			include('include/Views/login.ctp');	
+			return ob_get_clean();
 		}
 		if($url === "")
 		{
@@ -21,26 +43,29 @@ class Dispatcher
 			echo '</ul>';
 			return ob_get_clean();
 		}
-		$alias = false;
-		foreach(Config::folders() as $key => $aliasPath)
-		{
-			if(substr($url.'/', 0, strlen($key)+1) === $key.'/')
-			{
-				$alias = $key;
-				$path = $aliasPath;
-			}
-		}
 		if($alias === false)
 		{
 			Util::debug('Dispatcher::run - '.$url.' does not start with '.$key);
 			exit();
 		}
-		$path = $path.substr($url, strlen($alias));
+
 		if(!file_exists($path) || substr($path,-3) === "php")
 		{
 			Util::debug('Dispatcher::run - Wrong path: '.$path);
 			exit('not found');
 		}
+		if(!empty($_POST['share']))
+		{
+			if($_SESSION['token'] !== $_POST['token'])
+			{
+				Util::debug('Dispatcher::run - Wrong token');
+				exit();
+			}
+			$time = (time()+3600*24*2);
+			echo "http://".$_SERVER['HTTP_HOST'].str_replace("index.php","",$_SERVER['PHP_SELF']).'?'.$originalUrl.'/'.$time.'$'.substr(password_hash($time."/".$path, PASSWORD_DEFAULT, ['salt' => PRIVATE_KEY, 'cost' => 12]), 7).'.boofi';
+			exit();
+		}
+
 		if(!is_dir($path))
 		{
 			if(strstr($_SERVER["SERVER_SOFTWARE"], 'nginx'))
