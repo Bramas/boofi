@@ -7,7 +7,7 @@ Lighweight web file manager.
 * Access given to a finite number of users.
 * Possibility to share a link for a limited amount of time.
 * Works without database.
-* Uses the last cryptographics function available to create shared link and store passwords
+* Uses the last cryptographic functions available to create shared links and store passwords.
 * Simple and Secured.
 
 ### Installation
