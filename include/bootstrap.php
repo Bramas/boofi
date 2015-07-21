@@ -11,7 +11,11 @@ require_once('include/Dir.php');
 require_once('include/Dispatcher.php');
 require_once('include/SendFile/SendFile.php');
 require_once('include/SendFile/NginxSendFile.php');
-require_once('config.php');
+if(file_exists('config.php'))
+{
+	DEFINE('CONFIG_EXISTS', 1);
+	require_once('config.php');
+}
 require_once('Util.php');
 
 ?>

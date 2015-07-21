@@ -6,6 +6,12 @@ class Dispatcher
 {
 	public function run($url)
 	{
+		if(!defined('CONFIG_EXISTS'))
+		{
+			ob_start();
+			include('include/install.php');	
+			return ob_get_clean();
+		}
 		$originalUrl = $url;
 		if(substr($url, -1) === '/')
 		{
@@ -63,6 +69,19 @@ class Dispatcher
 			}
 			$time = (time()+3600*24*2);
 			echo "http://".$_SERVER['HTTP_HOST'].str_replace("index.php","",$_SERVER['PHP_SELF']).'?'.$originalUrl.'/'.$time.'$'.substr(password_hash($time."/".$path, PASSWORD_DEFAULT, ['salt' => PRIVATE_KEY, 'cost' => 12]), 7).'.boofi';
+			exit();
+		}
+		if(!empty($_POST['logout']))
+		{
+			if($_SESSION['token'] !== $_POST['token'])
+			{
+				Util::debug('Dispatcher::run - Wrong token');
+				exit();
+			}
+			$_SESSION['login'] = '';
+			$_SESSION['token'] = '';
+			$_SESSION['code'] = '';
+			header('Location: index.php');
 			exit();
 		}
 

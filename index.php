@@ -48,6 +48,13 @@ $content = $dispatcher->run(urldecode($_SERVER['QUERY_STRING']));
 			echo implode("\n", $folderList);
 			?>
 		</div>
+		<div style="float:right">
+			<form method="POST">
+				<input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+				<input type="hidden" name="logout" value="1">
+				<input type="submit" value="logout" class="btn btn-default" />
+			</form>
+		</div>
 		<table id="files-table" class="table table-striped tablesorter">
 			<thead>
 			<tr>
