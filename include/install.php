@@ -21,7 +21,13 @@ date_default_timezone_set('Europe/Paris');
 
 ";
 
-file_put_contents ( 'config.php', $data);
+if(!file_put_contents ( 'config.php', $data))
+{
+
+	echo 'unable to save config file. Please create config.php with the following content:<br/><br/>';
+	echo $data;
+	exit();
+}
 header("Location: index.php");
 exit();
 
