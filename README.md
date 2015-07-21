@@ -2,13 +2,15 @@ boofi
 =====
 
 Lighweight web file manager.
-Access given to a finite number of users.
-Possibility to share a link for a limited amount of time.
-Works without database.
-Uses the last cryptographics function available to create shared link and store passwords
-Simple and Secured.
 
-## Installation
+### Features
+* Access given to a finite number of users.
+* Possibility to share a link for a limited amount of time.
+* Works without database.
+* Uses the last cryptographics function available to create shared link and store passwords
+* Simple and Secured.
+
+### Installation
 
 1. Clone the repo
 
@@ -18,6 +20,6 @@ Simple and Secured.
 3. Enjoy
 
 
-## Author
+### Author
 
 Quentin Bramas
