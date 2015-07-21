@@ -3,6 +3,11 @@ session_start();
 
 define('DS', DIRECTORY_SEPARATOR);
 
+if(!function_exists('password_hash'))
+{
+	require_once('include/password_hash_compat.php');
+}
+
 require_once('include/Config.php');
 require_once('include/Authenticator.php');
 require_once('include/File.php');
